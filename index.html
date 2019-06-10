@@ -157,8 +157,8 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A mixture gaussian model can be defined as:
 $$G(x) = \sum_{i=1}^{M}\alpha_{i} * g_{i}(x); \quad with \sum_{i=1}^{M}\alpha_(i) = 1$$
-where α<sub>i</sub> is the weight of the component distributions g<sub>i</sub> and M is the number of component distribution in the mixture distribution. In this case we have M = 5 and α<sub>i</sub> = 1/M =0.2.</p>
-<p>To draw samples from G we can simply draw samples from each g<sub>i</sub> seperately with the number of samples from each component: n<sub>i</sub> = α<sub>i</sub> ∗ N = 0.2 ∗ 500 = 100 and combine them into 1 set. Drawing samples from a multivariate gaussian distribution can be done using np.random.multivariate_normal function.</p>
+where $\alpha_{i}$ is the weight of the component distributions $g_{i}$ and M is the number of component distribution in the mixture distribution. In this case we have $M = 5$ and $\alpha_{i} = 1/M =0.2$.</p>
+<p>To draw samples from $G$ we can simply draw samples from each $g_{i}$ seperately with the number of samples from each component: $n_{i} = \alpha_{i} * N = 0.2 * 500 = 100$ and combine them into 1 set. Drawing samples from a multivariate gaussian distribution can be done using np.random.multivariate_normal function.</p>
 
 </div>
 </div>
@@ -237,20 +237,19 @@ where α<sub>i</sub> is the weight of the component distributions g<sub>i</sub> 
 <h4 id="Calculate-the-boundary">Calculate the boundary<a class="anchor-link" href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/#Calculate-the-boundary">¶</a>
 </h4>
 <p>We have 2 prior distribution:
-π<sub>0</sub>=0.5,π<sub>1</sub>=0.5 since the number of sample from 2 set are equal</p>
-<p>Let y∈{0,1} be the output, and x∈ℜ<sup>2</sup> be the input. Using Bayes' theorem:
-$$p(y = 0|x) = \frac{p(x|y=0)\pi_0}{p(x)}$$
-$$p(y = 1|x) = \frac{p(x|y=1)\pi_1}{p(x)}$$</p>
-<p>The decision boundary is the line in ℜ<sup>2</sup> where this two conditional probabilities are equal:
+$\pi_{0} = 0.5, \pi_{1} = 0.5 $ since the number of sample from 2 set are equal</p>
+<p>Let $y \in \{0,1\}$ be the output, and $x \in R^{2}$ be the input. Using Bayes' theorem:</p>
+$$p(y = 0|x) = \frac{p(x|y=0)\pi_0}{p(x)}\quad and \quad p(y = 1|x) = \frac{p(x|y=1)\pi_1}{p(x)}$$<p>The decision boundary is the line in ℜ<sup>2</sup> where this two conditional probabilities are equal:
 $$p(y = 0|x) = p(y = 1|x)$$
 or
 $$p(x|y=0)\pi_0 = p(x|y=1)\pi_1\qquad(1)$$</p>
-<p>Since π<sub>0</sub> = π<sub>1</sub> = 0.5, we can simplify (1) to:
+<p>Since $\pi_{0} = \pi_{1} = 0.5 $, we can simplify (1) to:
 $$p(x|y=0) = p(x|y=1)\qquad(2)$$
 Let's solve (2):
 $$p(x|y=0)= \sum_{i=0}^{4}\alpha _{1i}e^{-1/2(x - \mu _{1i})^{T}\Sigma^{-1}(x - \mu _{1i})}$$
+and
 $$p(x|y=1)= \sum_{i=0}^{4}\alpha _{2i}e^{-1/2(x - \mu _{2i})^{T}\Sigma^{-1}(x - \mu _{2i})}$$
-where α<sub>1i</sub> = α<sub>2i</sub> = 0.2, ∀i, so (2) can be re-written as:
+where $\alpha_{1i} = \alpha_{2j} = 0.2, \forall i, j$, so (2) can be re-written as:
 $$\sum_{i=0}^{4}e^{-1/2(x - \mu _{1i})^{T}\Sigma^{-1}(x - \mu _{1i})}=\sum_{i=0}^{4}e^{-1/2(x - \mu _{2i})^{T}\Sigma^{-1}(x - \mu _{2i})}\qquad(3)$$
 It's hard to solve this equation manually but we don't have to, we just need to plot it. Fortunately, we can do so using matplotlib.</p>
 <p>First, we need a function to calculate either sides of (3):
@@ -346,19 +345,6 @@ $$prob(x) = \sum_{i=0}^{4}e^{-1/2(x - \mu _{i})^{T}\Sigma^{-1}(x - \mu _{i})}$$<
 </div>
 
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
 </div>
     </div>
     </article>
@@ -372,12 +358,15 @@ $$prob(x) = \sum_{i=0}^{4}e^{-1/2(x - \mu _{i})^{T}\Sigma^{-1}(x - \mu _{i})}$$<
         <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
-                        delimiters: [
-                            {left: "$$", right: "$$", display: true},
-                            {left: "\\[", right: "\\]", display: true},
-                            {left: "\\begin{equation*}", right: "\\end{equation*}", display: true},
-                            {left: "\\(", right: "\\)", display: false}
-                        ]
+                        
+delimiters: [
+    {left: "$$", right: "$$", display: true},
+    {left: "\\[", right: "\\]", display: true},
+    {left: "\\begin{equation*}", right: "\\end{equation*}", display: true},
+    {left: "$", right: "$", display: false},
+    {left: "\\(", right: "\\)", display: false}
+]
+
                     }
                 );
             </script>
