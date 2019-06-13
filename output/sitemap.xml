@@ -6,35 +6,35 @@
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
-  <loc>https://example.com/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/</loc>
   <lastmod>2019-06-10T01:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/archive.html</loc>
-  <lastmod>2019-06-13T11:37:00Z</lastmod>
+  <loc>https://ethanphan.github.io/datascienceblog/archive.html</loc>
+  <lastmod>2019-06-13T11:53:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/categories/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/categories/</loc>
   <lastmod>2019-06-10T01:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/galleries/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/galleries/</loc>
   <lastmod>2019-06-10T01:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/listings/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/listings/</loc>
   <lastmod>2019-06-10T01:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/pages/about/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/pages/about/</loc>
   <lastmod>2019-06-10T01:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/</loc>
   <lastmod>2019-06-10T01:25:00Z</lastmod>
  </url>
  <url>
-  <loc>https://example.com/posts/mse-and-bias-variance-decomposition/</loc>
+  <loc>https://ethanphan.github.io/datascienceblog/posts/mse-and-bias-variance-decomposition/</loc>
   <lastmod>2019-06-12T15:35:00Z</lastmod>
  </url>
 </urlset>
