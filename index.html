@@ -14,7 +14,7 @@
 <link rel="canonical" href="https://example.com/">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-<link rel="prefetch" href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/" type="text/html">
+<link rel="prefetch" href="posts/mse-and-bias-variance-decomposition/" type="text/html">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 </head>
 <body>
@@ -68,7 +68,107 @@
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/" class="u-url">Bayes Boundary with Multivariate Mixture Gaussian Distributions</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/mse-and-bias-variance-decomposition/" class="u-url">MSE and Bias-Variance decomposition</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Ethan Phan
+            </span></p>
+            <p class="dateline">
+            <a href="posts/mse-and-bias-variance-decomposition/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-12T22:48:39+08:00" itemprop="datePublished" title="2019-06-12 22:48">2019-06-12 22:48</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>I was reading the book "The Elements of Statistical Learning The Elements of Statistical Learning" to the part about <em>MSE</em> (mean square error) and  <em>bias–variance decomposition</em> and it's confusing to me. Understand this is very important to be able to have a good grasp of underfitting, overfitting. Unfortunately, The book didn't explain it clearly (or I was just too stupid for the book). So, I sought the explain on the internet and I found one. Here I will write it down for future reference. There are two common contexts: MSE for estimator and MSE for predictor.</p>
+<p>Wait, WTF is an estimator and a predictor?</p>
+<blockquote>
+<p>"Prediction" and "estimation" indeed are sometimes used interchangeably in non-technical writing and they seem to function similarly, but there is a sharp distinction between them in the standard model of a statistical problem. An estimator uses data to guess at a parameter while a predictor uses the data to guess at some random value that is not part of the dataset.</p>
+</blockquote>
+<h3 id="MSE-for-estimator">MSE for estimator<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#MSE-for-estimator">¶</a>
+</h3>
+<p><em>Estimator</em> is any function on a sample of the data that usually tries to estimate some useful qualities of the original data from which the sample is drawn. Formally, estimator is a function on a sample S:
+$$ \hat{\theta}_{S}=g(S), S=(x_{1}, x_{2},..., x_{m}) $$
+where $x_{i}$ is a random variable drawn from a unknown distribution $D$. i.e. $x_{i} \sim D$</p>
+<h4 id="Example">Example<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#Example">¶</a>
+</h4>
+<p>We would like to use this sample to estimate some useful qualities of the original data. For example, we may want to know the mean value of AAPL stock, but since we do not know to distribution that generates the price (If we knew, we would not be sitting here writing this blog) we resort to computing the mean of the observed prices only:
+$$ \hat{\mu}_{S} = \frac{1}{m} \sum_{1}^{m} x_{i}, \quad x_{i} \sim AAPL $$
+$$ \mu = \mathbb{E}_{x \sim AAPL} \left [ x \right ] $$
+would be an <em>estimated mean</em> of the AAPL stock and a <em>real mean</em> of the AAPL stock. Note that estimated mean is a random variable dependent on the sample S which is also a random variable, while the real mean is a scalar.</p>
+<p>Another example would be the estimated variance of the AAPL stock:
+$$\hat{\sigma}^{2}_{S} = \frac{1}{m} \sum_{1}^{m}(x_{i} - \hat{ \mu }_{S})^{2}, \quad x_{i} \sim AAPL$$
+$$\sigma^{2} = Var_{x \sim AAPL}(s)$$
+where $\sigma^{2}$ is the real variance of the AAPL stock.</p>
+<h4 id="Estimator-properties">Estimator properties<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#Estimator-properties">¶</a>
+</h4>
+<p>Now we would like to know how good our estimators are. There are two properties we can consider: <strong><em>Estimator Bias</em></strong> and <strong><em>Estimator Variance</em></strong>.</p>
+<p><strong><em>Estimator Bias</em></strong> measures how good our estimator is in estimating the real value. It is a simple difference:
+$$Bias(\hat{\theta}_{S}, \theta) = \mathbb{E}_{\hat{\theta}_{S} \sim D^{m}} \left [ \hat{\theta}_{S} \right ] - \theta$$</p>
+<p><strong><em>Estimator Variance</em></strong> measures how “jumpy” our estimator is to sampling, e.g. if we observe the stock price every 100ms instead of every 10ms would the estimator change a lot?
+$$ Var(\hat{\theta}_{S}) = Var_{S \sim D^{m}} \left [ \hat{\theta}_{S} \right ] $$</p>
+<h4 id="Example">Example<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#Example">¶</a>
+</h4>
+<p>If we assume that the actual distribution of the AAPL stock price is a Gaussian distribution then the bias of the estimator of $\mu$ is zero, meaning it is unbiased:
+$$Bias(\hat{\mu}_{S}, \mu) = \mathbb{E}_{S \sim D^{m}} \left [ \hat{\mu}_{S}  \right ] -  \mu = 0$$
+because $\mathbb{E}_{S \sim D^{m}} \left [ \hat{\mu}_{S}  \right ] = \mu $ for gaussian distribution</p>
+<p>Unfortunately, the bias of the estimator of $\sigma^{2}$ is not zero, it is biased because:
+$$Bias(\hat{\sigma}^{2}_{S}, \sigma^{2}) = \mathbb{E}_{S \sim D^{m}} \left [ \hat{\sigma}^{2}_{S}  \right ] -  \sigma^{2} =\mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}(x_{i} - \hat{ \mu }_{S})^{2} \right ] - \sigma^{2}$$</p>
+$$= \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}((x_{i} - \mu) - ( \hat{ \mu }_{S} - \mu ))^{2} \right ] - \sigma^{2}$$$$= \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}((x_{i} - \mu)^{2} - 2(x_{i} - \mu)( \hat{ \mu }_{S} - \mu ) + ( \hat{ \mu }_{S} - \mu )^{2}) \right ] - \sigma^{2}$$$$= \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}(x_{i} - \mu)^{2} - \frac{2}{m}( \hat{ \mu }_{S} - \mu )  \sum_{1}^{m} (x_{i} - \mu) + \frac{1}{m}( \hat{ \mu }_{S} - \mu )^{2} \sum_{1}^{m} 1\right ] - \sigma^{2}$$$$= \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}(x_{i} - \mu)^{2} - \frac{2}{m}( \hat{ \mu }_{S} - \mu )  \sum_{1}^{m} (x_{i} - \mu) + ( \hat{ \mu }_{S} - \mu )^{2} \right ] - \sigma^{2} $$<p>Note that:
+$$m(\hat{ \mu }_{S} - \mu) = m (\frac{1}{m} \sum_{1}^{m}x_{i} - \mu) = m (\frac{1}{m} \sum_{1}^{m}(x_{i} -\mu)) = \sum_{1}^{m}(x_{i} -\mu)$$</p>
+<p>Then, the previous become:</p>
+$$Bias(\hat{\sigma}^{2}_{S}, \sigma^{2}) = \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}(x_{i} - \mu)^{2} - 2( \hat{ \mu }_{S} - \mu )^{2} + ( \hat{ \mu }_{S} - \mu )^{2} \right ] - \sigma^{2}$$$$=  \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}(x_{i} - \mu)^{2} - ( \hat{ \mu }_{S} - \mu )^{2} \right ] - \sigma^{2}$$$$= \mathbb{E}_{S \sim D^{m}} \left [ \frac{1}{m} \sum_{1}^{m}(x_{i} - \mu)^{2} \right ] -  \mathbb{E}_{S \sim D^{m}} \left [ ( \hat{ \mu }_{S} - \mu )^{2} \right ] - \sigma^{2}$$$$= \sigma^{2} -  \mathbb{E}_{S \sim D^{m}} \left [ ( \hat{ \mu }_{S} - \mu )^{2} \right ] - \sigma^{2}
+= - \mathbb{E}_{S \sim D^{m}} \left [ ( \hat{ \mu }_{S} - \mu )^{2} \right ]
+= - \mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}^{2} + 2 \hat{ \mu }_{S} \mu - \mu^{2} \right ]$$$$ = -\mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}^{2} \right ]  + 2 \mu \mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}\right ] - \mu^{2} = -\mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}^{2} \right ] + 2 \mu^{2} - \mu^{2} =  -\mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}^{2} \right ] + \mu^{2}$$<p>Now remember we have $Var[x^{2}] = \mathbb{E}\left [x^{2}\right ] - \mathbb{E}\left [x\right ]^2$. We show that:
+$$ \mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}^{2} \right ] = Var \left [\hat{ \mu }_{S}^{2} \right ] + \mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S} \right ]^{2} = \frac{\sigma^{2}}{m} + \mu^{2}$$</p>
+<p>Putting these all together, we get
+$$ Bias(\hat{\sigma}^{2}_{S}, \sigma^{2}) = -\mathbb{E}_{S \sim D^{m}} \left [ \hat{ \mu }_{S}^{2} \right ] + \mu^{2} = -\frac{\sigma^{2}}{m} - \mu^{2} + \mu^{2} = - \frac{\sigma^{2}}{m}$$</p>
+<p>By the way, that’s why the following <em>unbiased estimator</em> is more commonly used in the literature:
+$$\hat{\sigma}^{2}_{S} = \frac{1}{m-1} \sum_{1}^{m}(x_{i} - \hat{ \mu }_{S})^{2}, \quad x_{i} \sim AAPL$$
+This is called <em>sample variance</em></p>
+<h4 id="Bias-variance-decomposition-for-estimators">Bias-variance decomposition for estimators<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#Bias-variance-decomposition-for-estimators">¶</a>
+</h4>
+<p>Bias-variance decomposition simply unites two of our favorite properties in one formula:
+$$ MSE = \mathbb{E} \left [ (\hat{\theta}_{S} - \theta)^{2}\right ] = Bias^{2}(\hat{\theta}_{S}, \theta) + Var(\hat{\theta}_{S}, \theta) $$</p>
+$$ Bias^{2}(\hat{\theta}_{S}, \theta) = (\mathbb{E} \left [ \hat{\theta}_{S} \right ] - \theta)^{2} = \mathbb{E} \left [ \hat{\theta}_{S} \right ]^{2} + \theta ^{2} - 2 \mathbb{E} \left [ \hat{\theta}_{S} \right ] \theta $$$$ Var(\hat{\theta}_{S}, \theta) = \mathbb{E} \left [ \hat{\theta}_{S}^{2} \right ] - \mathbb{E} \left [ \hat{\theta}_{S} \right ]^{2}$$<h3 id="MSE-for-predictor">MSE for predictor<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#MSE-for-predictor">¶</a>
+</h3>
+<p>In the previous section, we saw how we can use estimators to estimate some useful qualities of our data. In an example, we were able to estimate mean and variance of the APPL stock by only observing its values.</p>
+<p>Now we want to make some money and trade on a stock market! We would need to build a model that predicts the future values y of this stock from the available data x. This available data can be things like sales numbers, values of the stock in the past 5 days, announcements, product releases, etc. So we build a model that describes our stock price:
+$$ y = f(x) + \epsilon $$
+$f$ is the unknown real function and $\epsilon$ is the observation noise. If we want to predict the price, we would like to build a <em>predictor</em> that approximate $f$ as close as possible. The predictor is trained on some sample S of training data, but we want it to perform well on data that we did not observe yet. Therefore we want the following to be as small as possible:</p>
+$$ MSE = \mathbb{E}_{(x, y) \sim D, S \sim D^{m}, \epsilon \sim E} \left [ (y - \hat{f}_{S}(x) )^{2} \right ]$$<p>where $(x,y)$ is a random variable representing unobserved data. $S$ is the data we trained our predictor on, and $\epsilon$ is the noise following some distribution $E$. Note, that our unobserved (usually called testing data) has the same distribution as the points in training data $S$. It is generally very important in ML to have training and testing data coming from the same distribution.</p>
+<h3 id="MSE-for-predictor">MSE for predictor<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#MSE-for-predictor">¶</a>
+</h3>
+<p>In the previous section, we saw how we can use estimators to estimate some useful qualities of our data. In an example, we were able to estimate mean and variance of the APPL stock by only observing its values.</p>
+<p>Now we want to make some money and trade on a stock market! We would need to build a model that predicts the future values y of this stock from the available data x. This available data can be things like sales numbers, values of the stock in the past 5 days, announcements, product releases, etc. So we build a model that describes our stock price:
+$$ y = f(x) + \epsilon $$
+$f$ is the unknown real function and $\epsilon$ is the observation noise. If we want to predict the price, we would like to build a <em>predictor</em> that approximate $f$ as close as possible. The predictor is trained on some sample S of training data, but we want it to perform well on data that we did not observe yet. Therefore we want the following to be as small as possible:</p>
+$$ MSE = \mathbb{E}_{(x, y) \sim D, S \sim D^{m}, \epsilon \sim E} \left [ (y - \hat{f}_{S}(x) )^{2} \right ]$$<p>where $(x,y)$ is a random variable representing unobserved data. $S$ is the data we trained our predictor on, and $\epsilon$ is the noise following some distribution $E$. Note, that our unobserved (usually called testing data) has the same distribution as the points in training data $S$. It is generally very important in ML to have training and testing data coming from the same distribution.</p>
+<p>As it turns out MSE for predictor also has a bias-variance decomposition. Let's recall some basic equation:
+$$ Var[x^{2}] = \mathbb{E}\left [x^{2}\right ] - \mathbb{E}^{2}\left [x\right ]$$
+$$ \mathbb{E}\left [xy\right ] =  \mathbb{E}\left [x\right ]  \mathbb{E}\left [y\right ] + Cov(x, y)$$
+$$ Var(x + y) = Var(x) + Var(y) + 2Cov(x,y)$$
+$$ Var(x - y) = Var(x) + Var(y) - 2Cov(x,y)$$
+$$ Cov(x,y) = 0 \quad if \ x \ and \ y \ are \ independent $$</p>
+<p>Below all expectations, variances, and covariances are computed over $(x,y), S$, and $\epsilon$ random variables.
+$$MSE = E\left [ (y - \hat{f}_{S}(x))^{2} \right ] = E\left [ y^{2} \right ] + E\left [  \hat{f}_{S}^{2}(x) \right ] - 2E\left [  y\hat{f}_{S}(x) \right ] $$</p>
+$$ = Var\left [ y\right ] + E^{2} \left [ y \right ] + Var \left [ \hat{f}_{S}(x) \right ] +  E^{2} \left [ \hat{f}_{S}(x)  \right ]  - 2E\left [  f(x)\hat{f}_{S}(x) \right ] - 2E \left [  \epsilon \right ] E \left [ \hat{f}_{S}(x) \right ] $$<p>Here we assume $\epsilon$ is independent of $S$ and $(x,y)$ random variables
+$$ MSE = E\left [ (y - \hat{f}_{S}(x))^{2} \right ] = E\left [ y^{2} \right ] + E\left [  \hat{f}_{S}^{2}(x) \right ] - 2E\left [  y\hat{f}_{S}(x) \right ] $$</p>
+$$ = Var\left [ y\right ] + E^{2} \left [ y \right ] + Var \left [ \hat{f}_{S}(x) \right ] +  E^{2} \left [ \hat{f}_{S}(x)  \right ]  - 2E\left [  f(x)\hat{f}_{S}(x) \right ] - 2E \left [  \epsilon \right ] E \left [ \hat{f}_{S}(x) \right ] $$$$ = Var \left [ f(x) \right ] + Var \left [ \epsilon \right ] + E^{2} \left [ f(x) \right ] - 2E \left [ f(x) \right ] E \left [ \epsilon  \right ] + E^{2} \left [ \epsilon \right ] +  Var \left [ \hat{f}_{S}(x) \right ]  + E^{2} \left [ \hat{f}_{S}(x)  \right ] - 2E\left [  f(x)\right ] E \left [\hat{f}_{S}(x) \right ]  - 2 Cov(f(x), \hat{f}_{S}(x)) - 2E \left [  \epsilon \right ] E \left [ \hat{f}_{S}(x) \right ] $$$$ = Var(f(x) - \hat{f}_{S}(x)) + Var(\epsilon) + (E \left [ f(x) \right ] -  E \left [ \hat{f}_{S}(x) \right ])^{2}  -E \left [ \epsilon  \right ] (2 E \left [ f(x) \right ] - E \left [ \epsilon \right ] + E \left[ \hat{f}_{S}(x) \right ] ) $$<p>Now we will assume that noise ϵ has a zero mean. If the mean is non-zero but some constant c then we could include this constant into f(x) in our model and consider this noise to have zero mean.</p>
+$$ = Var(f(x) - \hat{f}_{S}(x)) + Var(\epsilon) + (E \left [ f(x) \right ] -  E \left [ \hat{f}_{S}(x) \right ])^{2} $$<p>The first term is usually referred to as <strong><em>Variance</em></strong>. It shows how “jumpy” the gap between the real model and the predictor model is depending on the training data $S$ and the test data $(x,y)$. Models with high capacity (e.g. neural network with extremely many layers) have high variance and models with low capacity (e.g. think linear regression) have low variance.</p>
+<p>The second term is <strong><em>Noise</em></strong>. It shows the impact of the observation noise. It does not depend on anything but the underlying distribution of the noise. There is nothing we can do to reduce this noise, it is irreducible.</p>
+<p>The third term is a squared <strong><em>Bias</em></strong>. It shows whether our predictor approximates the real model well. Models with high capacity have low bias and models with low capacity have high bias.
+Since both bias and variance contribute to MSE, good models try to reduce both of them. This is called bias-variance trade-off.</p>
+
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/" class="u-url">Bayes Boundary with Multivariate Mixture Gaussian Distributions</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Ethan Phan
