@@ -35,7 +35,7 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>We assume the distribution of mean of the 5 gausian distributions is uniform</li>
-<li>For simplicity, we assume each variable of a bivariate distribution is independent of each other =&gt; covariance matrix is diagonal matrix [[1, 0], [0, 1]]</li>
+<li>For simplicity, we assume each variable of a bivariate distribution is independent of each other =&gt; covariance matrix is diagonal matrix [[1, 0], [0, 1]]<!-- TEASER_END --></li>
 </ul>
 
 </div>
@@ -63,8 +63,8 @@
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A mixture gaussian model can be defined as:
-$$G(x) = \sum_{i=1}^{M}\alpha_{i} * g_{i}(x); \quad with \sum_{i=1}^{M}\alpha_(i) = 1$$
-where $\alpha_{i}$ is the weight of the component distributions $g_{i}$ and M is the number of component distribution in the mixture distribution. In this case we have $M = 5$ and $\alpha_{i} = 1/M =0.2$.</p>
+$$G(x) = \sum_{i=1}^{M}\alpha_{i} * g_{i}(x); \quad with \sum_{i=1}^{M}\alpha_(i) = 1$$</p>
+<p>where $\alpha_{i}$ is the weight of the component distributions $g_{i}$ and M is the number of component distribution in the mixture distribution. In this case we have $M = 5$ and $\alpha_{i} = 1/M =0.2$.</p>
 <p>To draw samples from $G$ we can simply draw samples from each $g_{i}$ seperately with the number of samples from each component: $n_{i} = \alpha_{i} * N = 0.2 * 500 = 100$ and combine them into 1 set. Drawing samples from a multivariate gaussian distribution can be done using np.random.multivariate_normal function.</p>
 
 </div>

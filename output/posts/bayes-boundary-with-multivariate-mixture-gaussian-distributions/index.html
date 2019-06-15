@@ -46,7 +46,7 @@
         <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
-<a href="../../archive/">Archive</a>
+<a href="../../archive.html">Archives</a>
                 </li>
 <li>
 <a href="../../categories/">Tags</a>
@@ -57,7 +57,19 @@
                 
             </li>
 </ul>
-<ul class="nav navbar-nav navbar-right">
+<!-- Google custom search --><form method="get" action="https://www.google.com/search" class="navbar-form navbar-right" role="search">
+<div class="form-group">
+<input type="text" name="q" class="form-control" placeholder="Search">
+</div>
+<button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search"></span>
+</button>
+<input type="hidden" name="sitesearch" value="https://ethanphan.github.io/datascienceblog/">
+</form>
+<!-- End of custom search -->
+
+
+            <ul class="nav navbar-nav navbar-right">
 <li>
     <a href="index.ipynb" id="sourcelink">Source</a>
     </li>
@@ -139,7 +151,8 @@
 <div class="text_cell_render border-box-sizing rendered_html">
 <ul>
 <li>We assume the distribution of mean of the 5 gausian distributions is uniform</li>
-<li>For simplicity, we assume each variable of a bivariate distribution is independent of each other =&gt; covariance matrix is diagonal matrix [[1, 0], [0, 1]]</li>
+<li>For simplicity, we assume each variable of a bivariate distribution is independent of each other =&gt; covariance matrix is diagonal matrix [[1, 0], [0, 1]]<!-- TEASER_END -->
+</li>
 </ul>
 </div>
 </div>
@@ -168,8 +181,8 @@
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>A mixture gaussian model can be defined as:
-$$G(x) = \sum_{i=1}^{M}\alpha_{i} * g_{i}(x); \quad with \sum_{i=1}^{M}\alpha_(i) = 1$$
-where $\alpha_{i}$ is the weight of the component distributions $g_{i}$ and M is the number of component distribution in the mixture distribution. In this case we have $M = 5$ and $\alpha_{i} = 1/M =0.2$.</p>
+$$G(x) = \sum_{i=1}^{M}\alpha_{i} * g_{i}(x); \quad with \sum_{i=1}^{M}\alpha_(i) = 1$$</p>
+<p>where $\alpha_{i}$ is the weight of the component distributions $g_{i}$ and M is the number of component distribution in the mixture distribution. In this case we have $M = 5$ and $\alpha_{i} = 1/M =0.2$.</p>
 <p>To draw samples from $G$ we can simply draw samples from each $g_{i}$ seperately with the number of samples from each component: $n_{i} = \alpha_{i} * N = 0.2 * 500 = 100$ and combine them into 1 set. Drawing samples from a multivariate gaussian distribution can be done using np.random.multivariate_normal function.</p>
 
 </div>

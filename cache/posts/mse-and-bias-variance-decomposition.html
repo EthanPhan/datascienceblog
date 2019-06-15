@@ -8,7 +8,8 @@
 </blockquote>
 <h2 id="MSE-for-estimator">MSE for estimator<a class="anchor-link" href="#MSE-for-estimator">&#182;</a></h2><p><em>Estimator</em> is any function on a sample of the data that usually tries to estimate some useful qualities of the original data from which the sample is drawn. Formally, estimator is a function on a sample S:
 $$ \hat{\theta}_{S}=g(S), S=(x_{1}, x_{2},..., x_{m}) $$
-where $x_{i}$ is a random variable drawn from a unknown distribution $D$. i.e. $x_{i} \sim D$</p>
+where $x_{i}$ is a random variable drawn from a unknown distribution $D$. i.e. $x_{i} \sim D$
+<!-- TEASER_END --></p>
 <h3 id="Example">Example<a class="anchor-link" href="#Example">&#182;</a></h3><p>We would like to use this sample to estimate some useful qualities of the original data. For example, we may want to know the mean value of AAPL stock, but since we do not know to distribution that generates the price (If we knew, we would not be sitting here writing this blog) we resort to computing the mean of the observed prices only:
 $$ \hat{\mu}_{S} = \frac{1}{m} \sum_{1}^{m} x_{i}, \quad x_{i} \sim AAPL $$
 $$ \mu = \mathbb{E}_{x \sim AAPL} \left [ x \right ] $$
