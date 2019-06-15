@@ -15,6 +15,7 @@
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
 <meta name="author" content="Ethan Phan">
 <link rel="prev" href="../bayes-boundary-with-multivariate-mixture-gaussian-distributions/" title="Bayes Boundary with Multivariate Mixture Gaussian Distributions" type="text/html">
+<link rel="next" href="../maximum-likelihood-estimators-and-least-squares/" title="Maximum likelihood estimators and least squares" type="text/html">
 <meta property="og:site_name" content="Ethan's (sort of) Data Science Blog">
 <meta property="og:title" content="MSE and Bias-Variance decomposition">
 <meta property="og:url" content="https://ethanphan.github.io/datascienceblog/posts/mse-and-bias-variance-decomposition/">
@@ -46,7 +47,7 @@
         <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
-<a href="../../archive/">Archive</a>
+<a href="../../archive.html">Archives</a>
                 </li>
 <li>
 <a href="../../categories/">Tags</a>
@@ -57,7 +58,19 @@
                 
             </li>
 </ul>
-<ul class="nav navbar-nav navbar-right">
+<!-- Google custom search --><form method="get" action="https://www.google.com/search" class="navbar-form navbar-right" role="search">
+<div class="form-group">
+<input type="text" name="q" class="form-control" placeholder="Search">
+</div>
+<button type="submit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-search"></span>
+</button>
+<input type="hidden" name="sitesearch" value="https://ethanphan.github.io/datascienceblog/">
+</form>
+<!-- End of custom search -->
+
+
+            <ul class="nav navbar-nav navbar-right">
 <li>
     <a href="index.ipynb" id="sourcelink">Source</a>
     </li>
@@ -105,7 +118,8 @@
 </h3>
 <p><em>Estimator</em> is any function on a sample of the data that usually tries to estimate some useful qualities of the original data from which the sample is drawn. Formally, estimator is a function on a sample S:
 $$ \hat{\theta}_{S}=g(S), S=(x_{1}, x_{2},..., x_{m}) $$
-where $x_{i}$ is a random variable drawn from a unknown distribution $D$. i.e. $x_{i} \sim D$</p>
+where $x_{i}$ is a random variable drawn from a unknown distribution $D$. i.e. $x_{i} \sim D$
+<!-- TEASER_END --></p>
 <h4 id="Example">Example<a class="anchor-link" href="#Example">¶</a>
 </h4>
 <p>We would like to use this sample to estimate some useful qualities of the original data. For example, we may want to know the mean value of AAPL stock, but since we do not know to distribution that generates the price (If we knew, we would not be sitting here writing this blog) we resort to computing the mean of the observed prices only:
@@ -183,6 +197,9 @@ Since both bias and variance contribute to MSE, good models try to reduce both o
     <aside class="postpromonav"><nav><ul class="pager hidden-print">
 <li class="previous">
                 <a href="../bayes-boundary-with-multivariate-mixture-gaussian-distributions/" rel="prev" title="Bayes Boundary with Multivariate Mixture Gaussian Distributions">Previous post</a>
+            </li>
+            <li class="next">
+                <a href="../maximum-likelihood-estimators-and-least-squares/" rel="next" title="Maximum likelihood estimators and least squares">Next post</a>
             </li>
         </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
