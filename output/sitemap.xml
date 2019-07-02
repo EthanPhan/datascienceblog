@@ -7,38 +7,42 @@
                         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/archive.html</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-07-02T15:22:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/categories/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/galleries/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/listings/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/pages/about/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/posts/maximum-likelihood-estimators-and-least-squares/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/posts/mse-and-bias-variance-decomposition/</loc>
-  <lastmod>2019-06-15T04:58:00Z</lastmod>
+  <lastmod>2019-06-19T02:56:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://ethanphan.github.io/datascienceblog/posts/my-note-on-ordinary-least-squares/</loc>
+  <lastmod>2019-07-02T15:22:00Z</lastmod>
  </url>
 </urlset>

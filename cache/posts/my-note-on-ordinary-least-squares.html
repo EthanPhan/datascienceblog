@@ -1,0 +1,196 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><font color=#CD5C5C>In statistics, ordinary least squares (OLS) is a type of linear least squares method for estimating the unknown parameters in a linear regression model. OLS chooses the parameters of a linear function of a set of explanatory variables by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being predicted) in the given dataset and those predicted by the linear function.</font></p>
+<h2><font color=#F08080>The True Model</font></h2>
+<p>Suppose the data consists of N observations $\{x_i, y_i\}_{i=1}^{N}$ . Each observation i includes a scalar response $y_i$ and a column vector $x_i$ of values of K predictors (regressors) $x_{ij}$ for j = 1, ..., K. In a linear regression model, the response variable, $y_i$ is a linear function of the regressors:</p>
+$$ y_i = \beta_1 x_{i1} + \beta_2 x_{i2} + ... + \beta_P x_{iK} + \epsilon_i, $$<p>or in vector form,</p>
+$$ y_i = x_i^T \beta + \epsilon_i, $$<p>where $\beta$ is a K×1 vector of unknown parameters; the $\epsilon_i$'s are unobserved scalar random variables (errors) which account for influences upon the responses $y_i$ from sources other than the explanators $x_i$; and $x_{i}$ is a column vector of the ith observations of all the explanatory variables. This model can also be written in matrix notation as</p>
+$$ y = X \beta + \epsilon \qquad (1)$$<!-- TEASER_END -->
+
+<p>where y and $\epsilon$ are N×1 vectors of the values of the response variable and the errors for the various observations, and X is an N×K matrix of regressors, also sometimes called the design matrix, whose row i is $x_i^T$ and contains the ith observations on all the explanatory variables.</p>
+<p>This is assumed to be an accurate reflection of the real world. The model has a systematic component $(X \beta)$ and a stochastic component $(\epsilon)$. Our goal is to obtain estimates of the population parameters in the $\beta$ vector.</p>
+<h2><font color=#F08080>Criteria for Estimates</font></h2>
+<p>Our estimates of the population parameters are referred to as $\hat{\beta}$. Recall that the criteria we use for obtaining our estimates is to find the estimator $\hat{\beta}$ that minimizes the sum of squared residuals ($\sum e_i^2$ in scalar notation). To know where does this criteria come from, please kindly check <a href="https://ethanphan.github.io/datascienceblog/posts/maximum-likelihood-estimators-and-least-squares/">my other blog post</a></p>
+<p>The residual vector e is given by</p>
+$$ e = y - X \hat{\beta}  \qquad (2)$$<p>The residual sum square error (RSS) is then $e^Te$</p>
+$$ [e_1 \ e_2 \ ... \ e_N]_{1×N} \begin{bmatrix}
+e_1\\ 
+e_2\\ 
+.\\
+.\\
+e_N\\ 
+\end{bmatrix}_{N×1} = [e_1^2 + e_2^2 + \ ... \ + e_N^2]_{1×1}  \qquad (3)$$<p>It's clearly that we can re-write the RSS as</p>
+$$ RSS = (y - X \hat{\beta})^T(y - X \hat{\beta}) = 
+y^Ty - y^T X \hat{\beta} - (X \hat{\beta})^T y + (X \hat{\beta})^T X \hat{\beta} $$$$ = y^Ty - y^T X \hat{\beta} - \hat{\beta}^T X^T y + \hat{\beta}^T X^T X \hat{\beta} $$<p>Note that $y^T X \hat{\beta}$ is an 1×1 matrix which means it's a scalar, so it's transpose is also a scalar and equal to itself</p>
+$$ y^T X \hat{\beta} = (y^T X \hat{\beta})^T = \hat{\beta}^T X^T y  \qquad (4)$$<p>Then</p>
+$$ RSS = y^Ty - 2 \hat{\beta}^T X^T y + \hat{\beta}^T X^T X \hat{\beta}  \qquad (5)$$<p>To find $\hat{\beta}$ that minimize RSS, we need to take the derivative of Eq. 5 with respect to $\hat{\beta}$ and set it to zero</p>
+$$ \frac{\partial RSS}{\partial \hat{\beta}} = - 2 X^T y + 2 X^T X \hat{\beta} = 0  \qquad (6)$$$$ \Rightarrow 2 X^T X \hat{\beta} = 2 X^T y $$$$ \Rightarrow \hat{\beta} = (X^T X)^{-1} X^T y $$<p>How do we know this is the minimum? We can check the second derivative of RSS with respect to $\hat{\beta}$</p>
+$$ \frac{\partial^2 RSS}{\partial \hat{\beta}^2} = 2 X^T X$$<p>If X has full rank, this is a positive definite matrix (analogous to a positive real number). So Eq. 6 gives us the minimum.</p>
+<h3><strong><em><font color=#F08080>A brief overview of matrix differentiation. </font></em></strong></h3>
+$$ \frac{\partial a^T b}{\partial b} = \frac{\partial b^T a}{\partial b} = a  \qquad (7) $$<p>when a and b are K×1 vector</p>
+$$ \frac{\partial b^T A b}{\partial b} = 2Ab = 2b^TA  \qquad (8) $$<p>when A is any symetric matrix. Do note that we can write it both ways, either $2Ab$ or $2b^TA$.</p>
+<p>Thus,</p>
+$$ \frac{\partial \hat{\beta}^T X^T y}{\partial \hat{\beta}} = X^T y $$<p>and</p>
+$$ \frac{\partial \hat{\beta}^T X^T X \hat{\beta}}{\partial \hat{\beta}} = 2 X^T X \hat{\beta} $$<p>when $X^T X$ is a K×K matrix.</p>
+<h2><font color=#F08080>Properties of the OLS Estimators</font></h2>
+<p>Since the OLS estimators in the $\hat{\beta}$ vector are a linear combination of existing random variables (X and y), they themselves are random variables with certain straightforward properties.</p>
+<p>Recall</p>
+$$ X^TX \hat{\beta} = X^Ty \qquad (9) $$<p>from Eq. 2 we have $y = X \hat{\beta} + e $, applying this to Eq. 9</p>
+$$ X^TX \hat{\beta} = X^T(X \hat{\beta} + e) $$$$ X^TX \hat{\beta} = X^TX \hat{\beta} + X^T e$$$$ 0 =  X^T e \qquad (10)$$<p>Eq. 10 looks like this</p>
+$$
+\begin{bmatrix}
+X_{11} &amp; X_{21} &amp; ... &amp; X_{1N}\\ 
+X_{12} &amp; X_{22} &amp; ... &amp; X_{2N}\\ 
+.\\
+.\\
+X_{K2} &amp; X_{22} &amp; ... &amp; X_{KN}\\ 
+\end{bmatrix}
+\begin{bmatrix}
+e_{1}\\ 
+e_{2}\\ 
+.\\
+.\\
+e_{N}\\ 
+\end{bmatrix}
+=
+\begin{bmatrix}
+X_{11} e_1 + X_{21} e_2 + ... + X_{1N} e_N\\ 
+X_{12} e_1 + X_{22} e_2 + ... + X_{2N} e_N\\ 
+.\\
+.\\
+X_{K2} e_1 + X_{22} e_2 + ... + X_{KN} e_N\\ 
+\end{bmatrix}
+=
+\begin{bmatrix}
+0\\ 
+0\\ 
+.\\
+.\\
+0\\ 
+\end{bmatrix}
+\qquad (11)$$<p>From Eq. 11 we can derive some nice properties of OLS</p>
+<p><strong>1. The observed values X are uncorrelated with residuals</strong></p>
+<p>This means each regressor has zero sample correlation with the residuals. But this doesn't mean X has zero correlation with $\epsilon$, it's a assumption we make</p>
+<p><em>The following properties hold true only when our regression includes a constant</em></p>
+<p><strong>2. Sum of the residuals is zero</strong></p>
+<p>If there is a constant, then a column in X (let's say X1) is a column of ones (or any constant c). This means the fist element of $X^Te$ is $e_1 + e_2 + .. + e_N = 0$</p>
+<p><strong>3. The sample mean of the residuals $\bar{e}$ is zero</strong></p>
+<p><strong>4. The regression hyperplane passes through the means of the observed values ($\bar{X}$ and $\bar{y}$)</strong></p>
+<p>Recall $y = X \hat{\beta} + e$. Dividing by the number of observations, we get $\bar{y} = \bar{x} \hat{\beta} + \bar{e} = \bar{x} \hat{\beta} $. This show that the regression hyperplane goes through the point of means of the data.</p>
+<p><strong>5. The predicted value of y are uncorrelated with the residual</strong></p>
+$$ \hat{y}^Te = (X \hat{\beta})^Te =  \hat{\beta}^T X^T e = \hat{\beta}^T 0 = 0 \qquad (12) $$<p><strong>6. The mean of the predicted Y’s for the sample will equal the mean of the observed Y’s i.e $\bar{\hat{y}}=\bar{y}$</strong></p>
+<p>Recall $y = X \hat{\beta} + e = \hat{y} + e$. Dividing by the number of sample we get $\bar{y} = \bar{\hat{y}} + \bar{e} = \bar{\hat{y}}$</p>
+<h2><font color=#F08080>The Gauss-Markov Assumptions</font></h2>
+<p><strong>Assumption 1</strong>: $ y = X \beta + \epsilon $. This means there is a linear relationship between y and X</p>
+<p><strong>Assumption 2 (Identification Condition)</strong>: X is an N×K matrix of full rank.</p>
+<p>This means there is no perfect multicollinearity which means the columns of X are linearly independent.</p>
+<p><strong>Assumption 3 (Zero mean conditional assumption)</strong>: $E[\epsilon | X] = 0$ or</p>
+$$
+E \begin{bmatrix}
+\epsilon_1 | X \\ 
+\epsilon_2 | X \\ 
+.\\
+.\\
+\epsilon_N | X \\ 
+\end{bmatrix} =
+\begin{bmatrix}
+E[\epsilon_1] \\ 
+E[\epsilon_2] \\ 
+.\\
+.\\
+E[\epsilon_N] \\ 
+\end{bmatrix} = [0]
+$$<p>The <em>disturbances</em> average out to zero for any value of X which means no observations of the independent variables convey any information about the expected value of the disturbance. This imply that $E[y] = X \beta$</p>
+<p><strong>Assumption 4</strong> $E[\epsilon \epsilon^T|X] = \sigma^2 I$</p>
+$$ E [\epsilon \epsilon^T|X] = 
+E \left [ \begin{bmatrix}
+\epsilon_1 | X \\ 
+\epsilon_2 | X \\ 
+.\\
+.\\
+\epsilon_N | X \\ 
+\end{bmatrix}
+[\epsilon_1 \ \epsilon_2 \ ... \ \epsilon_N ] \right ]
+\qquad (13) $$$$ = E \begin{bmatrix}
+\epsilon_1 \epsilon_1 | X &amp; \epsilon_1 \epsilon_2 |X &amp; ... &amp; \epsilon_1 \epsilon_N | X\\ 
+\epsilon_2 \epsilon_1 | X &amp; \epsilon_2 \epsilon_2 | X&amp; ... &amp; \epsilon_2 \epsilon_N | X\\ 
+. &amp; . &amp; ... &amp; .\\
+. &amp; . &amp; ... &amp; .\\
+\epsilon_N \epsilon_1 | X &amp; \epsilon_N \epsilon_2 | X &amp; ... &amp; \epsilon_N \epsilon_N | X\\ 
+\end{bmatrix}
+$$$$ = \begin{bmatrix}
+E[\epsilon_1^2 | X] &amp; E[\epsilon_1 \epsilon_2 | X] &amp; ... &amp; E[\epsilon_1 \epsilon_N | X]\\ 
+E[\epsilon_2 \epsilon_1 | X] &amp; E[\epsilon_2^2 | X] &amp; ... &amp; E[\epsilon_2 \epsilon_N | X]\\ 
+. &amp; . &amp; ... &amp; .\\
+. &amp; . &amp; ... &amp; .\\
+E[\epsilon_N \epsilon_1] | X &amp; E[\epsilon_N \epsilon_2 |X] &amp; ... &amp; E[\epsilon_N^2 | X]\\ 
+\end{bmatrix}
+\qquad (14)$$$$ = \begin{bmatrix}
+\sigma^2 &amp; 0 &amp; ... &amp; 0\\ 
+0 &amp; \sigma^2 &amp; ... &amp; 0\\ 
+. &amp; . &amp; ... &amp; .\\
+. &amp; . &amp; ... &amp; .\\
+0 &amp; 0 &amp; ... &amp; \sigma^2\\ 
+\end{bmatrix} \qquad (15)  = \sigma^2 I$$<p>This assumption means:</p>
+<ul>
+<li>The variance of $\epsilon_i$ is the same ($\sigma^2$) for all i (the assumption of homoskedasticity)</li>
+<li>The assumption of no autocorrelation: $Cov(\epsilon_i, \epsilon_j) = 0 \ \forall i \neq j$</li>
+</ul>
+<p>Disturbances that meet these two assumptions are referred to as spherical disturbances.We can re-write compactly the Gauss-Markov assumptions about the disturbances as:</p>
+$$ \Omega = \sigma^2 I \qquad (15)$$<p>where $\Omega$ is the variance-covariance matrix of the disturbances i.e $\Omega = E[\epsilon \epsilon^T]$</p>
+<p><strong>Assumption 5</strong> X may be random or fixed, but must not related to $\epsilon$</p>
+<p><strong>Assumption 6</strong> $\epsilon | X \sim N(0, \sigma^2I)$</p>
+<p>This assumption is not required for the Gauss-Markov Theorem. We make this assumption to simplify the hypothesis testing.</p>
+<h2><font color=#F08080>The Gauss-Markov Theorem</font></h2>
+<p><font color=#CD5C5C>There is be no other linear and unbiased estimator of the $\beta$ coefficients that has a smaller sampling variance. In other words, the OLS estimator is the Best Linear, Unbiased and Efficient estimator (BLUE).</font></p>
+<p>How do we know this?</p>
+<p><strong>Proof that $\hat{\beta}$ is an unbiased estimator of $\beta$.</strong></p>
+<p>Recall that $\hat{\beta} = (X^TX)^{-1}X^Ty$ and $y = X \beta + \epsilon$. This means</p>
+$$ \hat{\beta} = (X^TX)^{-1}X^T(X \beta + \epsilon) $$$$ \hat{\beta} = \beta + (X^TX)^{-1} X^T\epsilon \qquad (16)$$<p>This means that $\hat{\beta}$ is unbiased estimate of $\beta$ so long as $E[(X^TX)^{-1} X^T\epsilon] = 0$. There are 2 cases:</p>
+<ul>
+<li>X is fixed (non-stochastic; The same every time we draw N samples). $E[(X^TX)^{-1} X^T\epsilon] = (X^TX)^{-1} X^T E[\epsilon] = 0$ where $E[\epsilon] = 0$ using the Gauss-Markov assumption.</li>
+<li>X is stochastic (each time we draw N sample, we get another X) but independent of $\epsilon$. 
+$$ E[(X^TX)^{-1} X^T \epsilon] = E[(X^TX)^{-1}]E[ X^T \epsilon] = 0$$
+where $E[ X^T \epsilon] = 0$</li>
+</ul>
+<p><strong>Proof that $\hat{\beta}$ is a linear estimator of $\beta$.</strong></p>
+<p>We can re-write Eq. 16 as $\hat{\beta} = \beta + A\epsilon$ where $A = (X^TX)^{-1}X^T$. which shows that $\hat{\beta}$ is a linear function of the disturbances. This makes it a linear estimator.</p>
+<p><strong>Proof that $\hat{\beta}$ has minimal variance among all linear and unbiased estimators.</strong></p>
+$$ Var(\hat{\beta}) = E[(\hat{\beta} - \beta)(\hat{\beta} - \beta)^T] $$<p></p>
+$$ Var(\hat{\beta}) = E[((X^TX)^{-1} X^T \epsilon)((X^TX)^{-1} X^T \epsilon)^T] $$<p>where $\hat{\beta} = \beta + (X^TX)^{-1} X^T\epsilon $ from Eq. 16</p>
+$$ Var(\hat{\beta}) = E[(X^TX)^{-1} X^T \epsilon \epsilon^T X (X^TX)^{-1}]  \qquad (17)$$<p></p>
+<p>Since X and $\epsilon$ are independent</p>
+$$ Var(\hat{\beta}) = E[(X^TX)^{-1} X^T] E[ \epsilon \epsilon^T] E[ X (X^TX)^{-1}]  \qquad (18)$$<p></p>
+<p>If X is non stochastic</p>
+$$ Var(\hat{\beta}|X) = (X^TX)^{-1} X^T E[ \epsilon \epsilon^T | X] X (X^TX)^{-1} $$<p></p>
+$$ Var(\hat{\beta}|X) = (X^TX)^{-1} X^T \sigma^2I X (X^TX)^{-1} $$<p></p>
+$$ Var(\hat{\beta}|X) = \sigma^2 (X^TX)^{-1} X^TX (X^TX)^{-1} $$<p></p>
+$$ Var(\hat{\beta}|X) = \sigma^2 (X^TX)^{-1} \qquad (19)$$<p></p>
+<p>Recall that $\hat{\beta} = (X^TX)^{-1} X^Ty$ is an unbiased, linear estimator of $\beta$. Let $\hat{\beta}_0 = Cy$ is another linear unbiased estimator of $\beta$ where C is a K×N matrix. $\hat{\beta}_0$ being unbiased means</p>
+$$ E[\hat{\beta}_0 | X] = E[Cy | X] = E[C(X\beta + \epsilon) | X] = E[CX\beta + CX \epsilon | X] = \beta $$$$ E[CX\beta | X + E[CX \epsilon | X] = \beta$$$$\beta E[CX | X] = \beta$$$$\beta CX = \beta$$$$CX = I$$<p>Let $D = C - (X^TX)^{-1} X^T$ so that $Dy = \hat{\beta}_0 - \hat{\beta}$</p>
+$$ Var(\hat{\beta}_0 |X) = \sigma^2 [(D + (X^TX)^{-1} X^T)(D + (X^TX)^{-1} X^T)^T] $$<p>Since $CX = I = DX + (X^TX)^{-1} X^TX$ which means $ DX = 0$. Therefore</p>
+$$ Var(\hat{\beta}_0 |X) = \sigma^2 D D^T + \sigma^2 (X^TX)^{-1} $$$$ Var(\hat{\beta}_0 |X) = \sigma^2 D D^T + Var(\hat{\beta} | X) $$<p>Since a quadratic forms in $D D^T$ is $z^Tz \geq 0$, every quadratic form in $ Var(\hat{\beta}_0 |X)$ is learger than or equal to the corresponding quadratic form in $ Var(\hat{\beta} |X)$</p>
+<h2><font color=#F08080>The Variance-Covariance Matrix of the OLS Estimates</font></h2>
+<p>Recall Eq. 19, if X is non-stochastic</p>
+$$ Var(\hat{\beta}|X) = \sigma^2 (X^TX)^{-1}$$<p>To estimate $\sigma^2$ recall that 
+$$ y = X\hat{\beta} + e , \hat{\beta} = (X^T X)^{-1}X^Ty $$
+$$ e = y - X\hat{\beta} = y - X(X^T X)^{-1}X^Ty = (I - X(X^T X)^{-1}X^T) y = My$$</p>
+$$ e = M(X \beta + \epsilon) = MX \beta + M \epsilon = M \epsilon \qquad (20)$$<p>where $ M = I - X(X^T X)^{-1}X^T$ is and N×N symetric and <a href="https://en.wikipedia.org/wiki/Idempotent_matrix">indempotent matrix</a> (when multiplied by itself, yields itself) which are easy to prove. Note that $MX = 0$</p>
+$$ e^Te = (M \epsilon)^T M \epsilon = \epsilon^T M^T M \epsilon = \epsilon^T MM \epsilon = \epsilon^T M \epsilon \qquad (21)$$$$ E[e^Te | X] = E[ \epsilon^T M \epsilon | X ] \qquad (22)$$<p>Since $\epsilon^T M \epsilon$ is 1×1 matrix so $\epsilon^T M \epsilon = tr(\epsilon^T M \epsilon)$ (trace function). Also note that $tr(AB) = tr(BA)$ (cyclic permutation). Eq. 22 can be re-written as</p>
+$$ E[e^Te | X] = E[tr(\epsilon^T M \epsilon) | X ] = E[tr(M \epsilon \epsilon^T ) | X ] \qquad (23)$$<p>Because M is a function of X (and X) only and X is non-stochastic in this case</p>
+$$ E[e^Te | X] = tr(E[M \epsilon \epsilon^T | X ]) = tr(M E[\epsilon \epsilon^T | X] \qquad (24)$$<p>Appling assumption 4 that $E[\epsilon \epsilon^T |X] = \sigma^2 I$ we have</p>
+$$ E[e^Te | X] = tr(M E[\epsilon \epsilon^T | X] = tr(M) \sigma^2 I = (N - K) \sigma^2 I \qquad (25)$$<p>where</p>
+$$ tr(M) = tr(I_N) - tr(X(X^TX)^{-1}X^T) = tr(I_N) - tr((X^TX)^{-1}X^TX) = tr(I_N) - tr(I_K) = N - K \qquad (26)$$<p>So an unbiased estimate of $\sigma^2$ would be
+$$ \hat{\sigma}^2 = \frac{e^Te}{N-K} \qquad (27) $$</p>
+<p>So, with non-stochastic X (conditioned on X) $\hat{\beta} = \beta + (X^TX)^{-1}X^T \epsilon$ is a linear combination of the disturbances. With the assumption that $\epsilon \sim N[0, \sigma^2 I]$, se can say the OLS estimator has gaussian distribution</p>
+$$ \hat{\beta} \sim N[\beta, \sigma^2(X^TX)^{-1}] \qquad (28) $$<h2><font color=#F08080>References</font></h2>
+<p><a href="https://web.stanford.edu/~mrosenfe/soc_meth_proj3/matrix_OLS_NYU_notes.pdf">Prof. Michael J. Rosenfeld - OLS in Matrix Form - lecture note</a></p>
+<p><a href="https://spu.fem.uniag.sk/cvicenia/ksov/obtulovic/Manaž.%20štatistika%20a%20ekonometria/EconometricsGREENE.pdf">Greene, W. Econometric analysis. 4th ed. </a></p>
+
+</div>
+</div>
+</div>
+ 
+
