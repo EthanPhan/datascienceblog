@@ -14,7 +14,7 @@
 <link rel="canonical" href="https://ethanphan.github.io/datascienceblog/">
 <!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-<link rel="prefetch" href="posts/maximum-likelihood-estimators-and-least-squares/" type="text/html">
+<link rel="prefetch" href="posts/my-note-on-ordinary-least-squares/" type="text/html">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 </head>
 <body>
@@ -80,7 +80,33 @@
 
     
 <div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/maximum-likelihood-estimators-and-least-squares/" class="u-url">Maximum likelihood estimators and least squares</a></h1>
+    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/my-note-on-ordinary-least-squares/" class="u-url">My note on Ordinary Least Squares</a></h1>
+        <div class="metadata">
+            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
+                Ethan Phan
+            </span></p>
+            <p class="dateline">
+            <a href="posts/my-note-on-ordinary-least-squares/" rel="bookmark">
+            <time class="published dt-published" datetime="2019-06-27T22:31:16+08:00" itemprop="datePublished" title="2019-06-27 22:31">2019-06-27 22:31</time></a>
+            </p>
+        </div>
+    </header><div class="p-summary entry-summary">
+    <div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><font color="#CD5C5C">In statistics, ordinary least squares (OLS) is a type of linear least squares method for estimating the unknown parameters in a linear regression model. OLS chooses the parameters of a linear function of a set of explanatory variables by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being predicted) in the given dataset and those predicted by the linear function.</font></p>
+<h3><font color="#F08080">The True Model</font></h3>
+<p>Suppose the data consists of N observations $\{x_i, y_i\}_{i=1}^{N}$ . Each observation i includes a scalar response $y_i$ and a column vector $x_i$ of values of K predictors (regressors) $x_{ij}$ for j = 1, ..., K. In a linear regression model, the response variable, $y_i$ is a linear function of the regressors:</p>
+$$ y_i = \beta_1 x_{i1} + \beta_2 x_{i2} + ... + \beta_P x_{iK} + \epsilon_i, $$<p>or in vector form,</p>
+$$ y_i = x_i^T \beta + \epsilon_i, $$<p>where $\beta$ is a K×1 vector of unknown parameters; the $\epsilon_i$'s are unobserved scalar random variables (errors) which account for influences upon the responses $y_i$ from sources other than the explanators $x_i$; and $x_{i}$ is a column vector of the ith observations of all the explanatory variables. This model can also be written in matrix notation as</p>
+$$ y = X \beta + \epsilon \qquad (1)$$<p class="more"><a href="posts/my-note-on-ordinary-least-squares/">Read more…</a></p>
+</div>
+</div>
+</div>
+    </div>
+    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/maximum-likelihood-estimators-and-least-squares/" class="u-url">Maximum likelihood estimators and least squares</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
                 Ethan Phan
