@@ -1,0 +1,58 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><font color=#CD5C5C>Linear Discriminant Analysis(LDA) is a very common technique used for supervised classification problems. Let's dig in to understand what is it, how it works, how we should use it.</font></p>
+<p><a data-flickr-embed="true"  href="https://www.flickr.com/photos/15609463@N03/14898932531" title="Reading between the lines"><img src="https://live.staticflickr.com/5574/14898932531_0935b80b98_h.jpg" width="800" height="500" alt="Reading between the lines"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
+<!-- TEASER_END -->
+
+<p><strong>Table of Contents</strong></p>
+<ul>
+<li><a href="#what_is_lda">What is Linear Discriminant Analysis ?</a></li>
+<li><a href="#howitwork">How does Linear Discriminant Analysis Work ?</a><ul>
+<li><a href="#fisher_linear_discriminant">Fisher's linear discriminant</a></li>
+<li><a href="#multiclass_lda">Multiple Discriminant Analysis (MDA)</a></li>
+</ul>
+</li>
+<li><a href="#classification_with_lda">Classification with Linear Discriminant Analysis</a></li>
+</ul>
+<h2><font color=#F08080>What is Linear Discriminant Analysis ?<a class="anchor" id="what_is_lda"></a></font></h2>
+<p><a href="https://en.wikipedia.org/wiki/Linear_discriminant_analysis">Wikipedia: </a><strong>Linear discriminant analysis (LDA)</strong>, <strong>normal discriminant analysis (NDA)</strong>, or <strong>discriminant function analysis</strong> is a generalization of Fisher's linear discriminant, a method used in statistics, pattern recognition and machine learning to find a linear combination of features that characterizes or separates two or more classes of objects or events. The resulting combination may be used as a linear classifier, or, more commonly, for dimensionality reduction before later classification.</p>
+<p>The main goal of dimensionality reduction is to remove redundant or dependent features by transforming features to a lower dimension space. So, what is the difference between LDA and PCA? LDA is a supervised learning technique while PCA is usupervised.</p>
+<p><strong>The objective of LDA is to perform dimensionality reduction while preserving as much of the class disciminity information as possible.</strong></p>
+<h2><font color=#F08080>How does Linear Discriminant Analysis Work ?<a class="anchor" id="howitwork"></a></font></h2>
+<h3 id="Fisher's-linear-discriminant-(2-classes)-">Fisher's linear discriminant (2 classes) <a class="anchor" id="fisher_linear_discriminant" /><a class="anchor-link" href="#Fisher's-linear-discriminant-(2-classes)-">&#182;</a></h3><p>Assume we have a set of D-dimensional sample $\{x_1, x_2, ... , x_N \}$ $N_1$ of which belong to class $c_1$ and $N_2$ of which belong to class  $c_2$. We seek to obtain a scalar $y$ by projecting samples $x$ onto a line</p>
+$$ y = w^Tx \qquad (1)$$<p>We would like to choose the line that maximize the separability of the scalars. <strong>To do that, we need to define a metric to measure the separation of the projections.</strong></p>
+<p>Suppose two classes of observations have means $\vec{\mu}_1$, $\vec{\mu}_2$ and covariances $\Sigma _{1}$, $\Sigma _{2}$. Then mean and variance of the projections of the two class are $w^T\vec{\mu}_i$ and $w^T \Sigma _{i} w$ for i = 0, 1.</p>
+<p>We could choose the distance between the means of the classes as our objective function</p>
+$$ J(w) = |w^T\vec{\mu}_1 - w^T\vec{\mu}_2| = |w^T(\vec{\mu}_1 - \vec{\mu}_2)| \qquad (2)$$<p>However, distance between the projected means might not be a good measure as you can see here</p>
+<p><img src="https://i.imgur.com/Rq03xZQ.png" alt=""></p>
+<p>Fisher defined the separation between these two distributions to be the ratio of the variance between the classes to the variance within the classes:</p>
+$$ J(w) = \frac{\sigma_{between}}{\sigma_{within}} = \frac{(w^T(\vec{\mu}_1 - \vec{\mu}_2))^2}{w^T \Sigma _1 w + w^T \Sigma _2 w} = \frac{(w^T(\vec{\mu}_1 - \vec{\mu}_2))^2}{w^T (\Sigma _1 + \Sigma _2) w} = \frac{w^T S_B w}{w^TS_W w} \qquad (3) $$<p>where</p>
+$$ S_B = (\vec{\mu}_1 - \vec{\mu}_2)(\vec{\mu}_1 - \vec{\mu}_2)^T $$$$ S_W = \Sigma _1 + \Sigma _2 $$<p>In some sense, this measure is the signal to noise ratio of class labeling. To find the optimum, we can set the derivative of J and set it to zero</p>
+$$ \frac{dJ(w)}{dw} = 0 \qquad (4)$$$$ \frac{d[(w^TS_B w)](w^T S_W w) - d[w^T S_W w] (w^T S_B w)}{(w^T S_W w)^2} = 0 \qquad (5)$$$$ d[(w^TS_B w)] (w^T S_W w)  - d[w^T S_W w](w^T S_B w) = 0 \qquad (6)$$$$ 2 S_B w(w^T S_W w) - 2S_W w(w^T S_B w) = 0 \qquad (7)$$<p>Since both $w^T S_W w$ and $w^T S_B w$ are scalars
+$$ w^T S_W w (S_B w) - w^T S_B w (S_W w) = 0 \qquad (8)$$</p>
+$$ \frac{w^T S_W w (S_B w)}{w^T S_W w} - \frac{w^T S_B w (S_W w)}{w^T S_W w} = 0 \qquad (9) $$$$ S_B w = \lambda S_W w \qquad (10)$$<p>where $\lambda = \frac{w^T S_B w }{w^T S_W w}$ is a scalar depends on $w$
+If $S_W$ has full rank, Eq. 10 can be written as</p>
+$$ S^{-1}_W S_B w = \lambda w \qquad (11) $$<p>Eq. 11 is a standard eigenvalue problem.</p>
+<p>Note that $S_B x$ for any vector $x$, points in the same direction as $\vec{\mu}_1 - \vec{\mu}_2$</p>
+$$ S_B x = (\vec{\mu}_1 - \vec{\mu}_2) (\vec{\mu}_1 - \vec{\mu}_2)^T x =  (\vec{\mu}_1 - \vec{\mu}_2) \alpha \qquad (12)$$<p>Thus Eq. 11 can be solve with</p>
+$$ \boxed{w = S^{-1}_W (\vec{\mu}_1 - \vec{\mu}_2)} \qquad (13) $$$$ S^{-1}_W S_B w = S^{-1}_W S_B [S^{-1}_W (\vec{\mu}_1 - \vec{\mu}_2)] = S^{-1}_W \alpha (\vec{\mu}_1 - \vec{\mu}_2) = \alpha [S^{-1}_W (\vec{\mu}_1 - \vec{\mu}_2)] = \alpha w \qquad (14)$$<p>We can easily prove that $\alpha = \lambda = \frac{w^T S_B w }{w^T S_W w}$ Do note that the roles of $\vec{\mu}_1$ and $\vec{\mu}_2$ are interchangeable.</p>
+<p>The Eq. 13 is often known as <strong>Fisher's Linear Discriminant</strong> (1936), although it is not a dicriminant but rather a specific choice of direction for the projection od data down to one dimension.</p>
+<p>Be sure to note that the vector $w$ is the normal to the discriminant hyperplane. As an example, in a two dimensional problem, the line that best divides the two groups is perpendicular to $w$.</p>
+<h3 id="Multiple-Discriminant-Analysis-(MDA)-">Multiple Discriminant Analysis (MDA) <a class="anchor" id="multiclass_lda" /><a class="anchor-link" href="#Multiple-Discriminant-Analysis-(MDA)-">&#182;</a></h3><p>In the case where there are more than two classes, the analysis used in the derivation of the Fisher discriminant can be extended to find a subspace which appears to contain all of the class variability.</p>
+<p>We seek to obtain projection of sample to a linear subspace: $ y = V^T x$. $V$ is call <strong>projection matrix</strong>.</p>
+<p>Let $n_i$ be the number of samples of class $C_i$; $\mu_i$ be the sample mean of class $C_i$; and $\mu$ be the total mean of all samples</p>
+$$ \mu_i = \frac{1}{n_i} \sum_{x \in C_i} x \qquad \mu = \frac{1}{n} \sum_{x_i} x_i $$<p>The scatter within class variability may be defined by the total sum of covariance of each class</p>
+$$ S_W = \sum_{i=1}^{c}S_i = \sum_{i=1}^{c} \sum_{x_k \in C_i} (x_k - \mu_i)(x_k - \mu_i)^t \qquad (15)$$<p>The scatter between class variability may be defined by the sample covariance of the class means</p>
+$$ S_B = \sum_{i=1}^{c} n_i (\mu_i - \mu)(\mu_i - \mu)^T \qquad(16) $$<p>The class seperation for a projection $V$ in this case will be given by</p>
+$$ J(V) = \frac{det(V^T \Sigma_b V)}{det(V^T \Sigma V)} \qquad (17) $$<p>To maximize $J(V)$ we first need to solve the <strong>generalized eigenvalue</strong> problem:</p>
+$$ S_Bv = \lambda S_W v \qquad (18)$$<p>Note that matrix $S_B$ is of rank $c-1$ at most, Eq. 18 has atmost $c-1$ distinct solution eigenvalues $\lambda$. Let $v_1, v_2 ..., v_{c-1}$ be the corresponding eigenvectors. The optimal projection matrix V to a subspace of dimension $k$ is given by the eigenvectors corresponding to the largest $k$ eigenvalues.</p>
+<h2><font color=#F08080>Classification with Linear Discriminant Analysis<a class="anchor" id="classification_with_lda"></a></font></h2>
+<p>So far, LDA has been described as a mean of dimensionality reduction to reduce computational cost and avoid over-fitting. After applying this dimensionality reduction, classification can be performed using Bayes' rule approach. This section will be updated in the future.</p>
+
+</div>
+</div>
+</div>
+ 
+
