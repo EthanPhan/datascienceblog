@@ -1,0 +1,29 @@
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><font color=#CD5C5C>Often when we train a neural network with mini batches we shuffle the training set before every epoch. It is a very good practice but why? Do we need to do this? I'll try to answer these question in this blog post.</font></p>
+<p><img src="https://i.vimeocdn.com/video/770139883.jpg?mw=1920&amp;mh=1080&amp;q=70![image.png](attachment:image.png" alt="data shuffling">)</p>
+<!-- TEASER_END -->
+
+
+<p>When we train a neural network, we try to minimize an objective function, which is</p>
+$$J(\theta) = \frac{1}{N}\sum_{i=1}^{N}L(\theta, x_i) \qquad (1)$$<p>where $N$ is the number of samples in the training set and $x_i$ is the $ith$ training sample. This objective is a function of the set of parameters $\theta$ of the model and is parameterized by the whole training set. This is only practical when our training set is small. When the dataset becomes larger, the amount of time needed for one update can become too large. This is where mini-batch gradient descent comes to the rescue. Mini-batch gradient descent make the model update frequency higher than batch gradient descent which speed up the training process.</p>
+<p>But mini-batch training has its own shortcomings. When we use mini-batch training, we are not minimizing the objective function defined in Eq. 1. We actually minimizes a sequence of approximate functions</p>
+$$\hat{J}_1(\theta) = \frac{1}{M}\sum_{i=1}^{M}L(\theta, x_i)$$$$\hat{J}_2(\theta) = \frac{1}{M}\sum_{i=M+1}^{2M}L(\theta, x_i)$$$$\hat{J}_3(\theta) = \frac{1}{M}\sum_{i=2M+1}^{3M}L(\theta, x_i)$$$$...$$<p>where $M$ is batch size. Note that those are functions of $\theta$ - the parameters of the models, not functions of $x_i$. Each of those functions is an <strong>estimate</strong> of $J(\theta)$.</p>
+<p><strong>What if we do not shuffle the data?</strong></p>
+<p>If the training set is not shuffled after each epoch which means for every epoch, $\hat{J}_1(\theta)$ get the same parameters (same set of $x_i$) =&gt; They are <strong>fixed functions</strong> (not sure i'm using the right word here). We can prove that, in this case, they are all <strong>biased estimate</strong> of the true $J(\theta)$. Let's pick $\hat{J}_1(\theta)$ for example, its expectation is</p>
+$$E_{x_i}[\hat{J}_1(\theta)] = E_{x_i}\left [ \frac{1}{M}\sum_{i=1}^{M}L(\theta, x_i) \right ] \qquad (2)$$<p>If we assume that $x_i$'s are i.i.d which is often the case, then we can have
+$$E_{x_i}[\hat{J}_1(\theta)] = \frac{1}{M}\sum_{i=1}^{M} E_{x_i}[L(\theta, x_i)] \qquad (3)$$</p>
+<p>Since $x_i$ is fixed, Eq. 3 can be re-written as</p>
+$$E_{x_i}[\hat{J}_1(\theta)] = \frac{1}{M}\sum_{i=1}^{M} L(\theta, x_i) \neq \frac{1}{N}\sum_{i=1}^{N}L(\theta, x_i)$$<p>Which makes $\hat{J}_1(\theta)$ a biased estimate of $J(\theta)$. This is not what we want. We want un-biased estimates of $J(\theta)$. So how can we achieve that?</p>
+<p><strong>The effect of data shuffling</strong></p>
+<p>Let's say instead of fix set of $x_i$ for each $\hat{J}_j$, we draw sample uniformly from the training set for every iteration (every batch). This time, from Eq. 3,  the expectation of $\hat{J}_j$ is</p>
+$$E_{x_i}[\hat{J}_1(\theta)] = \frac{1}{M}\sum_{i=1}^{M} E_{x_i}[L(\theta, x_i)]$$$$= \frac{1}{M}\sum_{i=1}^{M} \frac{1}{N} \sum_{k = 1}^{N} L(\theta, x_k) =  \frac{1}{M} M \frac{1}{N} \sum_{k = 1}^{N} L(\theta, x_k) = J(\theta) \qquad (4)$$<p>From Eq. 4 we can see that with $x_i$ being draw uniformly from the training set, $\hat{J}_j$ become an un-biased estimate of $J$. Data shuffling is not randomly drawing $x_i$ uniformly from the training set but it's close and thus has the same effect.</p>
+<p><strong>TL;DR</strong>: To answer the questions, data shuffling in mini-batch training produces good gradient updates by un-biasedly estimate the true objective function. If we dont shuffle the data, our model might still converge but it might take longer to train while having higher training and testing error (high bias, since the estimate objective functions are bias).</p>
+
+</div>
+</div>
+</div>
+ 
+

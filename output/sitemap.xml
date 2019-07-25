@@ -11,7 +11,7 @@
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/archive.html</loc>
-  <lastmod>2019-07-10T04:17:00Z</lastmod>
+  <lastmod>2019-07-25T15:14:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/categories/</loc>
@@ -40,5 +40,9 @@
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/posts/my-note-on-ordinary-least-squares/</loc>
   <lastmod>2019-07-02T15:22:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://ethanphan.github.io/datascienceblog/posts/the-effect-of-data-shuffling-in-mini-batch-training/</loc>
+  <lastmod>2019-07-25T15:14:00Z</lastmod>
  </url>
 </urlset>
