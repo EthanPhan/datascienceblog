@@ -2,19 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="description" content="A blog about data science and AI stuff">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ethan's (sort of) Data Science Blog</title>
-<link href="assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
-<link href="assets/css/ipython.min.css" rel="stylesheet" type="text/css">
-<link href="assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
+<title>Getting Started with JanusGraph and Python | Ethan's (sort of) Data Science Blog</title>
+<link href="../../assets/css/all-nocdn.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/ipython.min.css" rel="stylesheet" type="text/css">
+<link href="../../assets/css/nikola_ipython.css" rel="stylesheet" type="text/css">
 <meta name="theme-color" content="#5670d4">
 <meta name="generator" content="Nikola (getnikola.com)">
-<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="rss.xml">
-<link rel="canonical" href="https://ethanphan.github.io/datascienceblog/">
-<!--[if lt IE 9]><script src="assets/js/html5.js"></script><![endif]--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<link rel="alternate" type="application/rss+xml" title="RSS" hreflang="en" href="../../rss.xml">
+<link rel="canonical" href="https://ethanphan.github.io/datascienceblog/posts/getting-started-with-janusgraph-and-python/">
+<!--[if lt IE 9]><script src="../../assets/js/html5.js"></script><![endif]--><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
-<link rel="prefetch" href="posts/getting-started-with-janusgraph-and-python/" type="text/html">
+<meta name="author" content="Ethan Phan">
+<link rel="prev" href="../the-effect-of-data-shuffling-in-mini-batch-training/" title="The effect of data shuffling in mini-batch training" type="text/html">
+<meta property="og:site_name" content="Ethan's (sort of) Data Science Blog">
+<meta property="og:title" content="Getting Started with JanusGraph and Python">
+<meta property="og:url" content="https://ethanphan.github.io/datascienceblog/posts/getting-started-with-janusgraph-and-python/">
+<meta property="og:description" content="Introduction¶The following introduction is from the official janusgrah website
+JanusGraph can be queried from all languages for which a TinkerPop driver exists. Drivers allow sending of Gremlin traver">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2019-10-10T11:22:51+08:00">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
 </head>
 <body>
@@ -40,13 +47,13 @@
         <div class="collapse navbar-collapse" id="bs-navbar" aria-expanded="false">
             <ul class="nav navbar-nav">
 <li>
-<a href="archive.html">Archives</a>
+<a href="../../archive.html">Archives</a>
                 </li>
 <li>
-<a href="categories/">Tags</a>
+<a href="../../categories/">Tags</a>
                 </li>
 <li>
-<a href="rss.xml">RSS feed</a>
+<a href="../../rss.xml">RSS feed</a>
 
                 
             </li>
@@ -63,7 +70,13 @@
 <!-- End of custom search -->
 
 
-            <ul class="nav navbar-nav navbar-right"></ul>
+            <ul class="nav navbar-nav navbar-right">
+<li>
+    <a href="index.ipynb" id="sourcelink">Source</a>
+    </li>
+
+                
+            </ul>
 </div>
 <!-- /.navbar-collapse -->
     </div>
@@ -74,30 +87,30 @@
         <div class="row">
             
             
+<article class="post-text h-entry hentry postpage" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title" itemprop="headline name"><a href="." class="u-url">Getting Started with JanusGraph and Python</a></h1>
 
-    
-
-
-    
-<div class="postindex">
-    <article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/getting-started-with-janusgraph-and-python/" class="u-url">Getting Started with JanusGraph and Python</a></h1>
         <div class="metadata">
             <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
+                    Ethan Phan
             </span></p>
             <p class="dateline">
-            <a href="posts/getting-started-with-janusgraph-and-python/" rel="bookmark">
+            <a href="." rel="bookmark">
             <time class="published dt-published" datetime="2019-10-10T11:22:51+08:00" itemprop="datePublished" title="2019-10-10 11:22">2019-10-10 11:22</time></a>
             </p>
+            
+        <p class="sourceline"><a href="index.ipynb" class="sourcelink">Source</a></p>
+
         </div>
-    </header><div class="p-summary entry-summary">
+        
+
+    </header><div class="e-content entry-content" itemprop="articleBody text">
     <div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Introduction">Introduction<a class="anchor-link" href="posts/getting-started-with-janusgraph-and-python/#Introduction">¶</a>
+<h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">¶</a>
 </h3>
 <p><em>The following introduction is from the official janusgrah website</em></p>
 <p>JanusGraph can be queried from all languages for which a TinkerPop driver exists. Drivers allow sending of Gremlin traversals to a Gremlin Server like the <a href="https://docs.janusgraph.org/basics/server/">JanusGraph Server</a>. A list of TinkerPop drivers is available on <a href="https://tinkerpop.apache.org/#language-drivers">TinkerPop’s homepage</a>.</p>
@@ -111,7 +124,7 @@
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Install-JanusGraph">Install JanusGraph<a class="anchor-link" href="posts/getting-started-with-janusgraph-and-python/#Install-JanusGraph">¶</a>
+<h3 id="Install-JanusGraph">Install JanusGraph<a class="anchor-link" href="#Install-JanusGraph">¶</a>
 </h3>
 <p>We will install JanusGraph and configure it to use <a href="http://cassandra.apache.org">Cassandra</a> as data storage backend while using <a href="https://www.elastic.co">Elasticsearch</a> for searching and indexing. For development purpose we can use local instances of Canssandra and Elasticsearch which conveniently come with the installing package of JanusGraph. In production phase, we will re-configure JanusGraph to use production servers of Cassandra and Elasticsearch.</p>
 <p>First, we need to download JanusGraph from its <a href="https://github.com/JanusGraph/janusgraph/releases">relases page</a>. We will use the newest version at the time of this writing - 0.4.0.</p>
@@ -2776,7 +2789,7 @@ Run gremlin.sh to connect.
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Importing-a-graph-into-JanusGraph">Importing a graph into JanusGraph<a class="anchor-link" href="posts/getting-started-with-janusgraph-and-python/#Importing-a-graph-into-JanusGraph">¶</a>
+<h3 id="Importing-a-graph-into-JanusGraph">Importing a graph into JanusGraph<a class="anchor-link" href="#Importing-a-graph-into-JanusGraph">¶</a>
 </h3>
 <p>For this part, we will use  the airport route data set from Kelvin Lawrence’s book <a href="https://github.com/krlawrence/graph">Practical Gremlin</a>. You can download the GraphML file <a href="https://github.com/krlawrence/graph/raw/master/sample-data/air-routes.graphml">here</a>.</p>
 <p>Dowload the said file into <code>/tmp</code> folder for easy reference</p>
@@ -2869,7 +2882,7 @@ gremlin&gt; g.V().has('code', departure_airport).repeat(out('route').simplePath(
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Connect-to-Gremlin-server-using-python">Connect to Gremlin server using python<a class="anchor-link" href="posts/getting-started-with-janusgraph-and-python/#Connect-to-Gremlin-server-using-python">¶</a>
+<h3 id="Connect-to-Gremlin-server-using-python">Connect to Gremlin server using python<a class="anchor-link" href="#Connect-to-Gremlin-server-using-python">¶</a>
 </h3>
 <p>Gremlin server doesn't support python out-of-the-box, we need to install gremlin-python for gremlin server. Please install the compatible version with the version of janusgraph that you are using. For JanusGraph 0.4.0 we have:</p>
 <p><strong>Tested Compatibility:</strong></p>
@@ -3188,210 +3201,11 @@ Successfully installed tornado-4.5.3
 </div>
 </div>
     </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/the-effect-of-data-shuffling-in-mini-batch-training/" class="u-url">The effect of data shuffling in mini-batch training</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
-            </span></p>
-            <p class="dateline">
-            <a href="posts/the-effect-of-data-shuffling-in-mini-batch-training/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-07-25T18:22:31+08:00" itemprop="datePublished" title="2019-07-25 18:22">2019-07-25 18:22</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><font color="#CD5C5C">Often when we train a neural network with mini batches we shuffle the training set before every epoch. It is a very good practice but why? Do we need to do this? I'll try to answer these question in this blog post.</font></p>
-<p><img src="https://i.vimeocdn.com/video/770139883.jpg" alt="data shuffling"></p>
-<p class="more"><a href="posts/the-effect-of-data-shuffling-in-mini-batch-training/">Read more…</a></p>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/linear-discriminant-analysis/" class="u-url">Linear Discriminant Analysis</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
-            </span></p>
-            <p class="dateline">
-            <a href="posts/linear-discriminant-analysis/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-07-08T22:05:59+08:00" itemprop="datePublished" title="2019-07-08 22:05">2019-07-08 22:05</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><font color="#CD5C5C">Linear Discriminant Analysis(LDA) is a very common technique used for supervised classification problems. Let's dig in to understand what is it, how it works, how we should use it.</font></p>
-<p><a data-flickr-embed="true" href="https://www.flickr.com/photos/15609463@N03/14898932531" title="Reading between the lines"><img src="https://live.staticflickr.com/5574/14898932531_0935b80b98_h.jpg" width="800" height="500" alt="Reading between the lines"></a><script async src="//embedr.flickr.com/assets/client-code.js" charset="utf-8"></script></p>
-<p class="more"><a href="posts/linear-discriminant-analysis/">Read more…</a></p>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/my-note-on-ordinary-least-squares/" class="u-url">My note on Ordinary Least Squares</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
-            </span></p>
-            <p class="dateline">
-            <a href="posts/my-note-on-ordinary-least-squares/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-06-27T22:31:16+08:00" itemprop="datePublished" title="2019-06-27 22:31">2019-06-27 22:31</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><font color="#CD5C5C">In statistics, ordinary least squares (OLS) is a type of linear least squares method for estimating the unknown parameters in a linear regression model. OLS chooses the parameters of a linear function of a set of explanatory variables by the principle of least squares: minimizing the sum of the squares of the differences between the observed dependent variable (values of the variable being predicted) in the given dataset and those predicted by the linear function.</font></p>
-<h3><font color="#F08080">The True Model</font></h3>
-<p>Suppose the data consists of N observations $\{x_i, y_i\}_{i=1}^{N}$ . Each observation i includes a scalar response $y_i$ and a column vector $x_i$ of values of K predictors (regressors) $x_{ij}$ for j = 1, ..., K. In a linear regression model, the response variable, $y_i$ is a linear function of the regressors:</p>
-$$ y_i = \beta_1 x_{i1} + \beta_2 x_{i2} + ... + \beta_P x_{iK} + \epsilon_i, $$<p>or in vector form,</p>
-$$ y_i = x_i^T \beta + \epsilon_i, $$<p>where $\beta$ is a K×1 vector of unknown parameters; the $\epsilon_i$'s are unobserved scalar random variables (errors) which account for influences upon the responses $y_i$ from sources other than the explanators $x_i$; and $x_{i}$ is a column vector of the ith observations of all the explanatory variables. This model can also be written in matrix notation as</p>
-$$ y = X \beta + \epsilon \qquad (1)$$<p class="more"><a href="posts/my-note-on-ordinary-least-squares/">Read more…</a></p>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/maximum-likelihood-estimators-and-least-squares/" class="u-url">Maximum likelihood estimators and least squares</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
-            </span></p>
-            <p class="dateline">
-            <a href="posts/maximum-likelihood-estimators-and-least-squares/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-06-14T23:30:07+08:00" itemprop="datePublished" title="2019-06-14 23:30">2019-06-14 23:30</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Why do we choose to minimize <strong><em>Mean Square Error</em></strong> (least square) when we do linear regression? Is it because it is smooth and easy to solve its direvative? Is it because that's out intuition about how to fit a curve to a set of points? As it turn out, there is a mathematical reason behind this and It has something to do with <strong><em>Maximum Likelihood</em></strong></p>
-<h3><font color="#F08080">Maximum likelihood estimators (MLE)</font></h3>
-<p>A maximum likelihood estimate for some hidden parameter $\lambda$ (or parameters, plural) of some probability distribution is a number $\hat{\lambda}$ computed from an independent identical distribution (i.i.d.) sample $X_{1} , ..., X_{n}$ from the given distribution that maximizes something called the “likelihood function”. Suppose that the distribution in question is governed by a pdf $f(x; \lambda_{1}, ..., \lambda_{k})$, where the $\lambda_{i}$’s are all hidden parameters. The likelihood function associated to the sample is just</p>
-$$ L(X_{1}, X_{2}, ..., X_{n}) = \prod_{1}^{n}f(X_{i}; \lambda_{1}, ..., \lambda_{k}) $$<p class="more"><a href="posts/maximum-likelihood-estimators-and-least-squares/">Read more…</a></p>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/mse-and-bias-variance-decomposition/" class="u-url">MSE and Bias-Variance decomposition</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
-            </span></p>
-            <p class="dateline">
-            <a href="posts/mse-and-bias-variance-decomposition/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-06-12T22:48:39+08:00" itemprop="datePublished" title="2019-06-12 22:48">2019-06-12 22:48</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>I was reading the book "The Elements of Statistical Learning The Elements of Statistical Learning" to the part about <em>MSE</em> (mean square error) and  <em>bias–variance decomposition</em> and it's confusing to me. Understand this is very important to be able to have a good grasp of underfitting, overfitting. Unfortunately, The book didn't explain it clearly (or I was just too stupid for the book). So, I sought the explain on the internet and I found one. Here I will write it down for future reference. There are two common contexts: MSE for estimator and MSE for predictor.</p>
-<p>Wait, WTF is an estimator and a predictor?</p>
-<blockquote>
-<p>"Prediction" and "estimation" indeed are sometimes used interchangeably in non-technical writing and they seem to function similarly, but there is a sharp distinction between them in the standard model of a statistical problem. An estimator uses data to guess at a parameter while a predictor uses the data to guess at some random value that is not part of the dataset.</p>
-</blockquote>
-<h3 id="MSE-for-estimator">MSE for estimator<a class="anchor-link" href="posts/mse-and-bias-variance-decomposition/#MSE-for-estimator">¶</a>
-</h3>
-<p><em>Estimator</em> is any function on a sample of the data that usually tries to estimate some useful qualities of the original data from which the sample is drawn. Formally, estimator is a function on a sample S:
-$$ \hat{\theta}_{S}=g(S), S=(x_{1}, x_{2},..., x_{m}) $$
-where $x_{i}$ is a random variable drawn from a unknown distribution $D$. i.e. $x_{i} \sim D$
-</p>
-<p class="more"><a href="posts/mse-and-bias-variance-decomposition/">Read more…</a></p>
-</div>
-</div>
-</div>
-    </div>
-    </article><article class="h-entry post-text" itemscope="itemscope" itemtype="http://schema.org/Article"><header><h1 class="p-name entry-title"><a href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/" class="u-url">Bayes Boundary with Multivariate Mixture Gaussian Distributions</a></h1>
-        <div class="metadata">
-            <p class="byline author vcard"><span class="byline-name fn" itemprop="author">
-                Ethan Phan
-            </span></p>
-            <p class="dateline">
-            <a href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/" rel="bookmark">
-            <time class="published dt-published" datetime="2019-06-10T09:17:46+08:00" itemprop="datePublished" title="2019-06-10 09:17">2019-06-10 09:17</time></a>
-            </p>
-        </div>
-    </header><div class="p-summary entry-summary">
-    <div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Multivariate-Mixture-Gaussian-Model">Multivariate Mixture Gaussian Model<a class="anchor-link" href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/#Multivariate-Mixture-Gaussian-Model">¶</a>
-</h2>
-<h3 id="Problem-statement:">Problem statement:<a class="anchor-link" href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/#Problem-statement:">¶</a>
-</h3>
-<p>Create a data set with N = 500 points from two mixed Gaussian distributions (each distribution has five bivariate Gaussian distributions). The elements of the first mixed distribution have a maximum average value of 0 and a minimum average of -5 and a variance of 1. The elements of the second mixed distribution have a maximum mean value of 5, the minimum average is 0 and the variance is 1. Draw decision boundary (Bayes boundary) between N points of the first mixture distribution and N points of the second mixture distribution <strong>without using any machine learning models</strong>.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import things we might need</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">numpy.random</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Generate-samples">Generate samples<a class="anchor-link" href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/#Generate-samples">¶</a>
-</h4>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>We assume the distribution of mean of the 5 gausian distributions is uniform</li>
-<li>For simplicity, we assume each variable of a bivariate distribution is independent of each other =&gt; covariance matrix is diagonal matrix [[1, 0], [0, 1]]<p class="more"><a href="posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/">Read more…</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-    </div>
-    </article>
-</div>
-
-
-
-
-
-        
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
+    <aside class="postpromonav"><nav><ul class="pager hidden-print">
+<li class="previous">
+                <a href="../the-effect-of-data-shuffling-in-mini-batch-training/" rel="prev" title="The effect of data shuffling in mini-batch training">Previous post</a>
+            </li>
+        </ul></nav></aside><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js" integrity="sha384-/y1Nn9+QQAipbNQWU65krzJralCnuOasHncUFXGkdwntGeSvQicrYkiUBwsgUqc1" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js" integrity="sha256-ExtbCSBuYA7kq1Pz362ibde9nnsHYPt6JxuxYeZbU+c=" crossorigin="anonymous"></script><script>
                 renderMathInElement(document.body,
                     {
                         
@@ -3405,7 +3219,7 @@ delimiters: [
 
                     }
                 );
-            </script>
+            </script></article>
 </div>
         <!--End of body content-->
 
@@ -3417,7 +3231,7 @@ delimiters: [
 </div>
 
 
-            <script src="assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
+            <script src="../../assets/js/all-nocdn.js"></script><!-- fancy dates --><script>
     moment.locale("en");
     fancydates(0, "YYYY-MM-DD HH:mm");
     </script><!-- end fancy dates --><script>
