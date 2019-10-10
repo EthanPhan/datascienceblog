@@ -18,8 +18,9 @@
 <meta property="og:site_name" content="Ethan's (sort of) Data Science Blog">
 <meta property="og:title" content="Getting Started with JanusGraph and Python">
 <meta property="og:url" content="https://ethanphan.github.io/datascienceblog/posts/getting-started-with-janusgraph-and-python/">
-<meta property="og:description" content="Introduction¶The following introduction is from the official janusgrah website
-JanusGraph can be queried from all languages for which a TinkerPop driver exists. Drivers allow sending of Gremlin traver">
+<meta property="og:description" content="Introduction¶
+The following introduction is from the official janusgrah website
+JanusGraph can be queried from all languages for which a TinkerPop driver exists. Drivers allow sending of Gremlin trave">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2019-10-10T11:22:51+08:00">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" integrity="sha384-wITovz90syo1dJWVh32uuETPVEtGigN07tkttEqPv+uR2SE/mbQcG7ATL28aI9H0" crossorigin="anonymous">
@@ -112,10 +113,11 @@ JanusGraph can be queried from all languages for which a TinkerPop driver exists
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Introduction">Introduction<a class="anchor-link" href="#Introduction">¶</a>
 </h3>
+<p><img src="https://res.cloudinary.com/dyyck73ly/image/upload/v1510256527/qbms30vhnxr6bidajpp0.png" alt="janusgraph"></p>
 <p><em>The following introduction is from the official janusgrah website</em></p>
 <p>JanusGraph can be queried from all languages for which a TinkerPop driver exists. Drivers allow sending of Gremlin traversals to a Gremlin Server like the <a href="https://docs.janusgraph.org/basics/server/">JanusGraph Server</a>. A list of TinkerPop drivers is available on <a href="https://tinkerpop.apache.org/#language-drivers">TinkerPop’s homepage</a>.</p>
 <p>In addition to drivers, there exist <a href="https://tinkerpop.apache.org/#language-variants-compilers">query languages for TinkerPop</a> that make it easier to use Gremlin in different programming languages like Java, Python, or C#. Some of these languages even construct Gremlin traversals from completely different query languages like Cypher or SPARQL. Since JanusGraph implements TinkerPop, all of these languages can be used together with JanusGraph.</p>
-
+<!-- TEASER_END -->
 </div>
 </div>
 </div>
@@ -128,7 +130,7 @@ JanusGraph can be queried from all languages for which a TinkerPop driver exists
 </h3>
 <p>We will install JanusGraph and configure it to use <a href="http://cassandra.apache.org">Cassandra</a> as data storage backend while using <a href="https://www.elastic.co">Elasticsearch</a> for searching and indexing. For development purpose we can use local instances of Canssandra and Elasticsearch which conveniently come with the installing package of JanusGraph. In production phase, we will re-configure JanusGraph to use production servers of Cassandra and Elasticsearch.</p>
 <p>First, we need to download JanusGraph from its <a href="https://github.com/JanusGraph/janusgraph/releases">relases page</a>. We will use the newest version at the time of this writing - 0.4.0.</p>
-<!-- TEASER_END -->
+
 </div>
 </div>
 </div>
