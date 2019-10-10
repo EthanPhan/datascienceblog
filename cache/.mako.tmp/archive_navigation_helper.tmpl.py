@@ -5,7 +5,7 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1570677870.761429
+_modified_time = 1570678251.827896
 _enable_loop = True
 _template_filename = '/Volumes/Data/ethan/.env_tf110_p36/lib/python3.7/site-packages/nikola/data/themes/base/templates/archive_navigation_helper.tmpl'
 _template_uri = 'archive_navigation_helper.tmpl'
@@ -28,9 +28,9 @@ def render_body(context,**pageargs):
 def render_archive_navigation(context):
     __M_caller = context.caller_stack._push_frame()
     try:
+        messages = context.get('messages', UNDEFINED)
         pagekind = context.get('pagekind', UNDEFINED)
         next_archive = context.get('next_archive', UNDEFINED)
-        messages = context.get('messages', UNDEFINED)
         up_archive = context.get('up_archive', UNDEFINED)
         has_archive_navigation = context.get('has_archive_navigation', UNDEFINED)
         previous_archive = context.get('previous_archive', UNDEFINED)
