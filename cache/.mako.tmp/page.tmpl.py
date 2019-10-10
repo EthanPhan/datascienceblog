@@ -5,9 +5,9 @@ STOP_RENDERING = runtime.STOP_RENDERING
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 10
-_modified_time = 1564111122.492896
+_modified_time = 1570677870.7392058
 _enable_loop = True
-_template_filename = '/Volumes/Data/ethan/.env_tf110_p36/lib/python3.6/site-packages/nikola/data/themes/base/templates/page.tmpl'
+_template_filename = '/Volumes/Data/ethan/.env_tf110_p36/lib/python3.7/site-packages/nikola/data/themes/base/templates/page.tmpl'
 _template_uri = 'page.tmpl'
 _source_encoding = 'utf-8'
 _exports = []
@@ -37,6 +37,6 @@ def render_body(context,**pageargs):
 
 """
 __M_BEGIN_METADATA
-{"filename": "/Volumes/Data/ethan/.env_tf110_p36/lib/python3.6/site-packages/nikola/data/themes/base/templates/page.tmpl", "uri": "page.tmpl", "source_encoding": "utf-8", "line_map": {"27": 0, "32": 1, "38": 32}}
+{"filename": "/Volumes/Data/ethan/.env_tf110_p36/lib/python3.7/site-packages/nikola/data/themes/base/templates/page.tmpl", "uri": "page.tmpl", "source_encoding": "utf-8", "line_map": {"27": 0, "32": 1, "38": 32}}
 __M_END_METADATA
 """

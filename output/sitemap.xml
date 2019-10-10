@@ -11,7 +11,7 @@
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/archive.html</loc>
-  <lastmod>2019-07-26T03:18:00Z</lastmod>
+  <lastmod>2019-10-10T03:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/categories/</loc>
@@ -24,6 +24,10 @@
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/posts/bayes-boundary-with-multivariate-mixture-gaussian-distributions/</loc>
   <lastmod>2019-06-19T02:56:00Z</lastmod>
+ </url>
+ <url>
+  <loc>https://ethanphan.github.io/datascienceblog/posts/getting-started-with-janusgraph-and-python/</loc>
+  <lastmod>2019-10-10T03:23:00Z</lastmod>
  </url>
  <url>
   <loc>https://ethanphan.github.io/datascienceblog/posts/linear-discriminant-analysis/</loc>
